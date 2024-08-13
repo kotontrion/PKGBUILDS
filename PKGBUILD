@@ -1,36 +1,57 @@
-# Maintainer: Gabriele Musco <gabmus@disroot.org>
-# Upstream URL: https://gitlab.gnome.org/jwestman/blueprint-compiler
+# Maintainer:
+# Contributor: Gabriele Musco <gabmus@disroot.org>
 
-pkgname=blueprint-compiler-git
-pkgver=r80.d0cf13b
+## links
+# https://jwestman.pages.gitlab.gnome.org/blueprint-compiler
+# https://gitlab.gnome.org/jwestman/blueprint-compiler
+
+_pkgname="blueprint-compiler"
+pkgname="$_pkgname-git"
+pkgver=0.12.0.r32.g22514b9
 pkgrel=1
 pkgdesc="A markup language for GTK user interfaces"
+url="https://gitlab.gnome.org/jwestman/blueprint-compiler"
+license=('LGPL-3.0-or-later')
 arch=('any')
-url="https://jwestman.pages.gitlab.gnome.org/blueprint-compiler"
-license=('LGPL3')
-depends=('python' 'gtk4')
-makedepends=('git' 'gobject-introspection' 'meson')
-provides=("${pkgname%-git}")
-conflicts=("${pkgname%-git}")
-source=("${pkgname%-git}::git+https://gitlab.gnome.org/jwestman/blueprint-compiler.git")
+
+depends=(
+  'libgirepository'
+  'python'
+  'python-gobject'
+)
+makedepends=(
+  'git'
+  'meson'
+)
+checkdepends=(
+  'libadwaita'
+  'xorg-server-xvfb'
+)
+
+provides=("$_pkgname=$pkgver")
+conflicts=("$_pkgname")
+
+_pkgsrc="$_pkgname"
+source=("$_pkgsrc"::"git+$url.git")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd "$srcdir/${pkgname%-git}"
-  # git describe --long --tags --always | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "$_pkgsrc"
+  git describe --long --tags --abbrev=7 \
+    | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
 }
 
 build() {
-  arch-meson "${pkgname%-git}" build
+  arch-meson "$_pkgsrc" build
   meson compile -C build
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  dbus-run-session xvfb-run \
+    -s '-screen 0 1920x1080x24 -nolisten local' \
+    meson test -C build --print-errorlogs
 }
 
 package() {
   meson install -C build --destdir "$pkgdir"
 }
-
