@@ -1,0 +1,42 @@
+# Maintainer: kotontrion <kotontrion@tutanota.de>
+
+pkgname=kompass-git
+pkgver=r74.4b98d8f
+pkgrel=1
+pkgdesc="kotontrions personal status panel"
+arch=(x86_64)
+license=(GPL-3.0-only)
+url="https://github.com/kotontrion/kompass"
+depends=(
+  gtk4
+  gtk4-layer-shell
+  glib2
+  libadwaita
+  libnm
+  libastal-meta
+)
+makedepends=(
+  meson
+  blueprint-compiler
+  dart-sass
+  git
+  gobject-introspection
+  vala
+)
+source=("${pkgname}::git+https://github.com/kotontrion/kompass.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+
+build() {
+  cd "$pkgname"
+  arch-meson build
+  meson compile -C build
+}
+
+package() {
+  cd "$pkgname"
+  meson install -C build --destdir "$pkgdir"
+}

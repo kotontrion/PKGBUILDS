@@ -1,0 +1,23 @@
+pkgbase = kompass-git
+	pkgdesc = kotontrions personal status panel
+	pkgver = r74.4b98d8f
+	pkgrel = 1
+	url = https://github.com/kotontrion/kompass
+	arch = x86_64
+	license = GPL-3.0-only
+	makedepends = meson
+	makedepends = blueprint-compiler
+	makedepends = dart-sass
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = vala
+	depends = gtk4
+	depends = gtk4-layer-shell
+	depends = glib2
+	depends = libadwaita
+	depends = libnm
+	depends = libastal-meta
+	source = kompass-git::git+https://github.com/kotontrion/kompass.git
+	sha256sums = SKIP
+
+pkgname = kompass-git
