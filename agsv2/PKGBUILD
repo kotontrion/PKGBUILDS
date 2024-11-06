@@ -1,7 +1,7 @@
 # Maintainer: kotontrion <kotontrion@tutanota.de>
 pkgname=agsv2-git
 _pkgname=ags
-pkgver=1.8.2.r34.g9fe75a1
+pkgver=1.8.2.r38.g42624a5
 pkgrel=1
 pkgdesc="Aylurs's Gtk Shell (AGS), An eww inspired gtk widget system."
 arch=('x86_64')
@@ -18,7 +18,7 @@ pkgver(){
 }
 
 build() {
-  cd $srcdir/$_pkgname/src
+  cd $srcdir/$_pkgname
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
@@ -28,7 +28,7 @@ build() {
 }
 
 package() {
-  cd $srcdir/$_pkgname/src
+  cd $srcdir/$_pkgname
   install -Dm755 ${_pkgname}v2 "$pkgdir"/usr/bin/${_pkgname}v2
 }
 
