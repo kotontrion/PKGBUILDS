@@ -1,10 +1,11 @@
 pkgbase = agsv1
 	pkgdesc = Aylurs's Gtk Shell (AGS), An eww inspired gtk widget system.
-	pkgver = 1.8.2
+	pkgver = 1.9.0
 	pkgrel = 1
 	url = https://github.com/Aylur/ags
 	arch = x86_64
 	license = GPL-3.0-only
+	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = glib2-devel
@@ -26,7 +27,9 @@ pkgbase = agsv1
 	optdepends = power-profiles-daemon: required for powerprofiles service
 	optdepends = upower: required for battery service
 	backup = etc/pam.d/ags
-	source = agsv1-1.8.2.tar.gz::https://github.com/Aylur/ags/releases/download/v1.8.2/ags-v1.8.2.tar.gz
-	sha256sums = ea0a706bef99578b30d40a2d0474b7a251364bfcf3a18cdc9b1adbc04af54773
+	source = agsv1-1.9.0.tar.gz::https://github.com/Aylur/ags/archive/refs/tags/v1.9.0.tar.gz
+	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control
+	sha256sums = 962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6
+	sha256sums = SKIP
 
 pkgname = agsv1

@@ -11,13 +11,13 @@
 
 pkgname=agsv1
 _pkgname=ags
-pkgver=1.8.2
+pkgver=1.9.0
 pkgrel=1
 pkgdesc="Aylurs's Gtk Shell (AGS), An eww inspired gtk widget system."
 arch=('x86_64')
 url="https://github.com/Aylur/ags"
 license=('GPL-3.0-only')
-makedepends=('gobject-introspection' 'meson' 'glib2-devel' 'npm' 'typescript')
+makedepends=('git' 'gobject-introspection' 'meson' 'glib2-devel' 'npm' 'typescript')
 depends=('gjs' 'glib2' 'glibc' 'gtk3' 'gtk-layer-shell' 'libpulse' 'pam')
 optdepends=('gnome-bluetooth-3.0: required for bluetooth service'
             'greetd: required for greetd service'
@@ -28,18 +28,25 @@ optdepends=('gnome-bluetooth-3.0: required for bluetooth service'
             'power-profiles-daemon: required for powerprofiles service'
             'upower: required for battery service')
 backup=('etc/pam.d/ags')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Aylur/ags/releases/download/v${pkgver}/ags-v${pkgver}.tar.gz")
-sha256sums=('ea0a706bef99578b30d40a2d0474b7a251364bfcf3a18cdc9b1adbc04af54773')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Aylur/ags/archive/refs/tags/v${pkgver}.tar.gz"
+        "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control")
+sha256sums=('962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6'
+            SKIP)
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  mv -T "$srcdir"/libgnome-volume-control subprojects/gvc
+}
 
 build() {
-  cd $srcdir/$_pkgname
+  cd "$srcdir/$_pkgname-$pkgver"
   npm install
   arch-meson build --libdir "lib/$_pkgname" -Dbuild_types=true
   meson compile -C build
 }
 
 package() {
-  cd $srcdir/$_pkgname
+  cd "$srcdir/$_pkgname-$pkgver"
   meson install -C build --destdir "$pkgdir"
   rm ${pkgdir}/usr/bin/ags
   ln -sf /usr/share/com.github.Aylur.ags/com.github.Aylur.ags ${pkgdir}/usr/bin/agsv1
