@@ -1,7 +1,8 @@
 # Maintainer: kotontrion <kotontrion@tutanota.de>
 
-pkgname=kompass-git
-pkgver=r84.b0936c1
+pkgbase=kompass-git
+pkgname=(libkompass-git kompass-git)
+pkgver=r100.99836cc
 pkgrel=1
 pkgdesc="kotontrions personal status panel"
 arch=(x86_64)
@@ -14,9 +15,6 @@ depends=(
   libadwaita
   libnm
   libastal-meta
-  slurp
-  grim
-  wf-recorder
 )
 makedepends=(
   meson
@@ -26,6 +24,7 @@ makedepends=(
   gobject-introspection
   vala
 )
+provides=(kompass libkompass)
 source=("${pkgname}::git+https://github.com/kotontrion/kompass.git")
 sha256sums=('SKIP')
 
@@ -39,7 +38,29 @@ build() {
   meson compile -C build
 }
 
-package() {
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+    done
+}
+
+package_libkompass-git() {
+
+  provides=(libkompass.so)
+
   cd "$pkgname"
   meson install -C build --destdir "$pkgdir"
+  
+  cd "$pkgdir"
+
+  _pick kompass-bar usr/bin/kompass
+}
+
+package_kompass-git() {
+  depends+=(libkompass-git slurp grim wf-recorder)  
+  mv kompass-bar/* "$pkgdir"
 }

@@ -1,6 +1,6 @@
 pkgbase = kompass-git
 	pkgdesc = kotontrions personal status panel
-	pkgver = r84.b0936c1
+	pkgver = r100.99836cc
 	pkgrel = 1
 	url = https://github.com/kotontrion/kompass
 	arch = x86_64
@@ -17,10 +17,22 @@ pkgbase = kompass-git
 	depends = libadwaita
 	depends = libnm
 	depends = libastal-meta
+	provides = kompass
+	provides = libkompass
+	source = libkompass-git::git+https://github.com/kotontrion/kompass.git
+	sha256sums = SKIP
+
+pkgname = libkompass-git
+	provides = libkompass.so
+
+pkgname = kompass-git
+	depends = gtk4
+	depends = gtk4-layer-shell
+	depends = glib2
+	depends = libadwaita
+	depends = libnm
+	depends = libastal-meta
+	depends = libkompass-git
 	depends = slurp
 	depends = grim
 	depends = wf-recorder
-	source = kompass-git::git+https://github.com/kotontrion/kompass.git
-	sha256sums = SKIP
-
-pkgname = kompass-git
