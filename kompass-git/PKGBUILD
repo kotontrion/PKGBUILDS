@@ -2,7 +2,7 @@
 
 pkgbase=kompass-git
 pkgname=(libkompass-git kompass-git)
-pkgver=r100.99836cc
+pkgver=r105.9e02183
 pkgrel=1
 pkgdesc="kotontrions personal status panel"
 arch=(x86_64)
@@ -15,6 +15,9 @@ depends=(
   libadwaita
   libnm
   libastal-meta
+  libportal
+  slurp
+  wf-recorder
 )
 makedepends=(
   meson
@@ -61,6 +64,6 @@ package_libkompass-git() {
 }
 
 package_kompass-git() {
-  depends+=(libkompass-git slurp grim wf-recorder)  
+  depends+=(libkompass-git)
   mv kompass-bar/* "$pkgdir"
 }
