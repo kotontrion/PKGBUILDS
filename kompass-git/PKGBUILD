@@ -2,7 +2,7 @@
 
 pkgbase=kompass-git
 pkgname=(libkompass-git kompass-git)
-pkgver=r105.9e02183
+pkgver=r56.6faee18
 pkgrel=1
 pkgdesc="kotontrions personal status panel"
 arch=(x86_64)
@@ -32,12 +32,14 @@ source=("${pkgname}::git+https://github.com/kotontrion/kompass.git")
 sha256sums=('SKIP')
 
 pkgver() {
+  cd "$pkgname"
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
 }
 
 build() {
   cd "$pkgname"
-  arch-meson build
+  # force rebuild of libkompass
+  arch-meson build --force-fallback-for=kompass-0.1
   meson compile -C build
 }
 
