@@ -1,6 +1,6 @@
 pkgbase = kompass-git
 	pkgdesc = kotontrions personal status panel
-	pkgver = r56.6faee18
+	pkgver = r57.0cdc3cb
 	pkgrel = 1
 	url = https://github.com/kotontrion/kompass
 	arch = x86_64
