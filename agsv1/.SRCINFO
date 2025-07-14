@@ -1,7 +1,7 @@
 pkgbase = agsv1
 	pkgdesc = Aylurs's Gtk Shell (AGS), An eww inspired gtk widget system.
 	pkgver = 1.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/Aylur/ags
 	arch = x86_64
 	license = GPL-3.0-only
@@ -29,7 +29,9 @@ pkgbase = agsv1
 	backup = etc/pam.d/ags
 	source = agsv1-1.9.0.tar.gz::https://github.com/Aylur/ags/archive/refs/tags/v1.9.0.tar.gz
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control
+	source = fix-type-error.patch
 	sha256sums = 962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6
+	sha256sums = SKIP
 	sha256sums = SKIP
 
 pkgname = agsv1

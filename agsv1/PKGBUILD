@@ -12,7 +12,7 @@
 pkgname=agsv1
 _pkgname=ags
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Aylurs's Gtk Shell (AGS), An eww inspired gtk widget system."
 arch=('x86_64')
 url="https://github.com/Aylur/ags"
@@ -29,13 +29,16 @@ optdepends=('gnome-bluetooth-3.0: required for bluetooth service'
             'upower: required for battery service')
 backup=('etc/pam.d/ags')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Aylur/ags/archive/refs/tags/v${pkgver}.tar.gz"
-        "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control")
+        "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control"
+        "fix-type-error.patch")
 sha256sums=('962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6'
+            SKIP
             SKIP)
 
 prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
-  mv -T "$srcdir"/libgnome-volume-control subprojects/gvc
+  mv -Tf "$srcdir"/libgnome-volume-control subprojects/gvc
+  patch -Np1 -i ../fix-type-error.patch
 }
 
 build() {
