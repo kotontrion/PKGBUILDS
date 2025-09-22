@@ -1,13 +1,9 @@
 # Maintainer:
 # Contributor: Gabriele Musco <gabmus@disroot.org>
 
-## links
-# https://jwestman.pages.gitlab.gnome.org/blueprint-compiler
-# https://gitlab.gnome.org/jwestman/blueprint-compiler
-
 _pkgname="blueprint-compiler"
 pkgname="$_pkgname-git"
-pkgver=0.12.0.r32.g22514b9
+pkgver=0.18.0.r29.g3ee03cf
 pkgrel=1
 pkgdesc="A markup language for GTK user interfaces"
 url="https://gitlab.gnome.org/jwestman/blueprint-compiler"
