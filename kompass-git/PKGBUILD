@@ -1,10 +1,10 @@
 # Maintainer: kotontrion <kotontrion@tutanota.de>
 
-pkgbase=kompass-git
+pkgbase=libkompass-git
 pkgname=(libkompass-git kompass-git)
-pkgver=r57.0cdc3cb
+pkgver=r111.83e736f
 pkgrel=1
-pkgdesc="kotontrions personal status panel"
+pkgdesc="a gtk4 wayland desktop shell"
 arch=(x86_64)
 license=(GPL-3.0-only)
 url="https://github.com/kotontrion/kompass"
@@ -14,6 +14,7 @@ depends=(
   glib2
   libadwaita
   libnm
+  libnma-gtk4
   libastal-meta
   libportal
   slurp
@@ -27,7 +28,6 @@ makedepends=(
   gobject-introspection
   vala
 )
-provides=(kompass libkompass)
 source=("${pkgname}::git+https://github.com/kotontrion/kompass.git")
 sha256sums=('SKIP')
 
@@ -38,7 +38,6 @@ pkgver() {
 
 build() {
   cd "$pkgname"
-  # force rebuild of libkompass
   arch-meson build
   meson compile -C build
 }
@@ -55,17 +54,19 @@ _pick() {
 
 package_libkompass-git() {
 
-  provides=(libkompass.so)
+  provides+=(libkompass.so)
+  pkgdesc="a library providing some useful widgets for building desktop shells"
 
   cd "$pkgname"
   meson install -C build --destdir "$pkgdir"
   
   cd "$pkgdir"
 
-  _pick kompass-bar usr/bin/kompass
+  _pick kompass usr/bin/kompass
 }
 
 package_kompass-git() {
+  provides+=(kompass)
   depends+=(libkompass-git)
-  mv kompass-bar/* "$pkgdir"
+  mv kompass/* "$pkgdir"
 }
