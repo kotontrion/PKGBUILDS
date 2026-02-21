@@ -30,6 +30,7 @@ pkgbase = agsv1
 	source = agsv1-1.9.0.tar.gz::https://github.com/Aylur/ags/archive/refs/tags/v1.9.0.tar.gz
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control
 	source = fix-type-error.patch
+	source = fix-gir-error.patch
 	sha256sums = 962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6
 	sha256sums = SKIP
 	sha256sums = SKIP
