@@ -30,7 +30,8 @@ optdepends=('gnome-bluetooth-3.0: required for bluetooth service'
 backup=('etc/pam.d/ags')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Aylur/ags/archive/refs/tags/v${pkgver}.tar.gz"
         "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control"
-        "fix-type-error.patch")
+        "fix-type-error.patch"
+        "fix-gir-error.patch")
 sha256sums=('962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6'
             SKIP
             SKIP)
@@ -39,6 +40,7 @@ prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
   mv -Tf "$srcdir"/libgnome-volume-control subprojects/gvc
   patch -Np1 -i ../fix-type-error.patch
+  patch -Np1 -i ../fix-gir-error.patch
 }
 
 build() {
