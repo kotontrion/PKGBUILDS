@@ -32,9 +32,11 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/Aylur/ags/archive/refs/tags
         "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control"
         "fix-type-error.patch"
         "fix-gir-error.patch")
-sha256sums=('962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6'
-            SKIP
-            SKIP)
+sha256sums=(
+            '962f99dcf202eef30e978d1daedc7cdf213e07a3b52413c1fb7b54abc7bd08e6'
+            'SKIP'
+            '784bf72809db1d446c3e0989d673ad59e5a6e1e70b7d6d221567154db050ceb5'
+            'e1a9a4cb487d416b82fe9040a814850d6cdc61d4c6f07548ee4f1e543f4422c1')
 
 prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
