@@ -1,0 +1,27 @@
+diff '--color=auto' -ura package.original/src/com.github.Aylur.ags.js.in package.new/src/com.github.Aylur.ags.js.in
+--- package.original/src/com.github.Aylur.ags.js.in	2024-11-14 05:35:09.000000000 -0800
++++ package.new/src/com.github.Aylur.ags.js.in	2026-02-21 15:00:14.612905788 -0800
+@@ -20,7 +20,6 @@
+  */
+ 
+ import { exit, programArgs, programInvocationName } from "system";
+-import GIR from "gi://GIRepository?version=2.0";
+ 
+ imports.package.init({
+     name: '@APP_ID@',
+@@ -29,9 +28,11 @@
+     libdir: '@LIBDIR@',
+ });
+ 
+-GIR.Repository.prepend_search_path('@LIBDIR@');
+-GIR.Repository.prepend_library_path('@LIBDIR@');
++import GIRepository from 'gi://GIRepository';
++const repo = GIRepository.Repository.dup_default();
++repo.prepend_search_path('@LIBDIR@');
++repo.prepend_library_path('@LIBDIR@');
+ 
+ const module = await import('resource://@RESOURCE_PATH@/main.js');
+ const exitCode = await module.main([programInvocationName, ...programArgs]);
+-exit(exitCode);
++exit(exitCode);
+\ No newline at end of file
