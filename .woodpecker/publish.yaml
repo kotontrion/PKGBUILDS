@@ -1,0 +1,39 @@
+when:
+  - event: push
+    branch: main
+
+steps:
+  - name: publish
+    image: archlinux:latest
+    environment:
+       AUR_KEY:
+         from_secret: AUR_KEY
+    commands:
+      - pacman -Syu --noconfirm aurpublish jq
+      - git config --global --add safe.directory $PWD
+      - mkdir -p /root/.ssh/keys
+      - echo 'Host aur aur.archlinux.org' > /root/.ssh/config
+      - echo '    User aur' >> /root/.ssh/config
+      - echo '    Hostname aur.archlinux.org' >> /root/.ssh/config
+      - echo '    IdentityFile ~/.ssh/keys/aur' >> /root/.ssh/config
+      - echo "$${AUR_KEY}" > /root/.ssh/keys/aur
+      - chmod 400 /root/.ssh/keys/aur
+      - ssh-keyscan aur.archlinux.org > /root/.ssh/known_hosts
+      - aurpublish setup
+      - |
+        changed_dirs="$(
+          echo "$CI_PIPELINE_FILES" \
+          | jq -r '.[]' \
+          | xargs -r -n1 dirname \
+          | sort -u
+        )"
+
+        for dir in $changed_dirs; do
+          [ -n "$dir" ] || continue
+          [ -d "$dir" ] || continue
+          [ -f "$dir/.noaur" ] && continue
+          [ -f "$dir/PKGBUILD" ] || continue
+
+          echo "Publishing $dir"
+          aurpublish "$dir"
+        done
