@@ -1,5 +1,5 @@
-pkgbase = libastal-notifd-git
-	pkgdesc = A notification daemon library and cli tool
+pkgbase = libastal-brightness-git
+	pkgdesc = Library and cli tool for controlling display brightness
 	pkgver = r895.dd388d2
 	pkgrel = 1
 	url = https://github.com/Aylur/astal
@@ -13,12 +13,11 @@ pkgbase = libastal-notifd-git
 	depends = glib2
 	depends = glibc
 	depends = json-glib
-	depends = gdk-pixbuf2
 	depends = quarrel
-	provides = astal-notifd
-	provides = libastal-notifd
-	provides = libastal-notifd.so=0-64
+	provides = astal-brightness
+	provides = libastal-brightness
+	provides = libastal-brightness.so=0-64
 	source = git+https://github.com/Aylur/astal.git
 	sha256sums = SKIP
 
-pkgname = libastal-notifd-git
+pkgname = libastal-brightness-git

@@ -1,17 +1,19 @@
 # Maintainer: kotontrion <kotontrion@tutanota.de>
 
-pkgname=quarrel-git
-_pkgname=quarrel
+pkgname=libastal-brightness-git
+_pkgname=brightness
 pkgver=r895.dd388d2
-pkgrel=2
-provides=(quarrel libquarrel.so=0-64)
-pkgdesc="Lib for command line argument parsing."
+pkgrel=1
+provides=(astal-brightness libastal-brightness libastal-brightness.so=0-64)
+pkgdesc="Library and cli tool for controlling display brightness"
 arch=(x86_64)
 license=(LGPL-2.1-only)
 url="https://github.com/Aylur/astal"
 depends=(
   glib2
   glibc
+  json-glib
+  quarrel
 )
 makedepends=(
   meson
@@ -19,6 +21,7 @@ makedepends=(
   gobject-introspection
   vala
 )
+groups=("libastal")
 source=("git+${url}.git")
 sha256sums=('SKIP')
 
