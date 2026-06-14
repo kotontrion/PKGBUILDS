@@ -1,0 +1,20 @@
+pkgbase = blueprint-compiler-git
+	pkgdesc = A markup language for GTK user interfaces
+	pkgver = 0.18.0.r29.g3ee03cf
+	pkgrel = 1
+	url = https://gitlab.gnome.org/jwestman/blueprint-compiler
+	arch = any
+	license = LGPL-3.0-or-later
+	checkdepends = libadwaita
+	checkdepends = xorg-server-xvfb
+	makedepends = git
+	makedepends = meson
+	depends = libgirepository
+	depends = python
+	depends = python-gobject
+	provides = blueprint-compiler=0.18.0.r29.g3ee03cf
+	conflicts = blueprint-compiler
+	source = blueprint-compiler::git+https://gitlab.gnome.org/jwestman/blueprint-compiler.git
+	sha256sums = SKIP
+
+pkgname = blueprint-compiler-git
